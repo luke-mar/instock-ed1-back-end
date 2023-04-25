@@ -6,10 +6,12 @@ const warehouseRoutes = require('./routes/warehouseRoute');
 
 app.use(express.json());
 app.use(cors());
+
 app.get('/', (req, res) => {
     res.send('hello');
   });
 
-  app.use('/warehouses', warehouseRoutes);
+app.use('/inventories', inventoryRoutes);
+app.use('/warehouses', warehouseRoutes);
   
 app.listen(8080, () => console.log(`Listening on 8080`));
