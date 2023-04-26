@@ -44,7 +44,7 @@ exports.singleWarehouse = (req, res) => {
           return res.status(400).send(`Please fill out all fields!`);
         }
         //Ensure the phone number field contains numbers and is 10 digits in length.
-        if (!req.body.contact_phone.match(/^[0-9]+$/) || req.body.contact_phone.length == 10) {
+        if (!req.body.contact_phone.match(/^[0-9]+$/) || req.body.contact_phone.length !== 10) {
           return res.status(400).send(`Please enter a valid phone number with area code.`);
         }
         //Ensure the email address contains the at symbol and a period for the domain portion.
