@@ -6,7 +6,7 @@ router
 
 router
 .route('/:id')
-.get(inventoryController.singleInventories)
+.get(inventoryController.singleInventory)
 .put(inventoryController.updateInventories);
 
 module.exports = router;

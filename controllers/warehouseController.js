@@ -20,7 +20,6 @@ exports.singleWarehouse = (req, res) => {
                     .status(404)
                     .send(`Record with id: ${req.params.id} is not found`);
             }
-
             // Knex returns an array of records, so we need to send response with a single object only
             res.status(200).json(data[0]);
         })
@@ -31,6 +30,8 @@ exports.singleWarehouse = (req, res) => {
         );
 };
 
+
+let emptyArray = [];
 exports.warehouseInventories = (req, res) => {
     knex("inventories")
         .where({ warehouse_id: req.params.id })
@@ -38,9 +39,7 @@ exports.warehouseInventories = (req, res) => {
             if (data.length > 0) {
                 res.status(200).json(data);
             } else {
-                res.status(404).send(
-                    `Error retrieving inventories for Warehouse ${req.params.id}`
-                );
+                res.status(404).send(emptyArray);
             }
         })
         .catch((err) => {
