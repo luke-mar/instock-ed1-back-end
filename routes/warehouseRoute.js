@@ -7,8 +7,10 @@ router
 
 
 router
-.route("/:id")
-.get(warehouseController.singleWarehouse);
+.route('/:id')
+.get(warehouseController.singleWarehouse)
+.put(warehouseController.updateWarehouse)
+
 
 router
 .route("/:id/inventories")
