@@ -45,22 +45,40 @@ exports.updateInventories = (req, res) => {
         );
 };
 
-
 let emptyObject = {};
 exports.singleInventory = (req, res) => {
-  knex('inventories')
-    .where({ id: req.params.id })
-    .then((data) => {
-      // If record is not found, respond with 404
-      if (!data.length) {
-        return res.status(404).send(emptyObject);
-      }
+    knex("inventories")
+        .where({ id: req.params.id })
+        .then((data) => {
+            // If record is not found, respond with 404
+            if (!data.length) {
+                return res.status(404).send(emptyObject);
+            }
 
-      // Knex returns an array of records, so we need to send response with a single object only
-      res.status(200).json(data[0]);
-    })
-    .catch((err) =>
-      res.status(400).send(`Error retrieving warehouse ${req.params.id} ${err}`)
-    );
+            // Knex returns an array of records, so we need to send response with a single object only
+            res.status(200).json(data[0]);
+        })
+        .catch((err) =>
+            res
+                .status(400)
+                .send(`Error retrieving warehouse ${req.params.id} ${err}`)
+        );
+};
+
+exports.deleteInventory = (req, res) => {
+    knex("inventories")
+        .delete()
+        .where({ id: req.params.id })
+        .then(() => {
+            // For DELETE response we can use 204 status code
+            res.status(204).send(
+                `Warehouse with id: ${req.params.id} has been deleted`
+            );
+        })
+        .catch((err) =>
+            res
+                .status(400)
+                .send(`Error deleting Warehouse ${req.params.id} ${err}`)
+        );
 };
 
