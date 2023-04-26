@@ -7,14 +7,14 @@ router
     .post(warehouseController.addWarehouse);
 
 router
-.route('/:id')
-.get(warehouseController.singleWarehouse)
-.put(warehouseController.updateWarehouse);
-
+  .route('/:id')
+  .get(warehouseController.singleWarehouse)
+  .put(warehouseController.updateWarehouse)
+  .delete(warehouseController.deleteWarehouse);
 
 router
-.route("/:id/inventories")
-.get(warehouseController.warehouseInventories);
+  .route("/:id/inventories")
+  .get(warehouseController.warehouseInventories);
 
 
 module.exports = router;
