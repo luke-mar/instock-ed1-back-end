@@ -1,4 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
+const uuid = require("uuid");
 
 exports.index = (_req, res) => {
     knex("warehouses")
@@ -75,5 +76,30 @@ exports.warehouseInventories = (req, res) => {
             console.error(err);
             res.status(500).json({ error: "Internal server error " });
         });
+};
+
+exports.addWarehouse = (req, res) => {
+    const id = uuid.v4 ();
+    console.log (req.body);
+    if (
+        !req.body.warehouse_name || 
+        !req.body.address || 
+        !req.body.city || 
+        !req.body.country || 
+        !req.body.contact_name || 
+        !req.body.contact_position || 
+        !req.body.contact_phone || 
+        !req.body.contact_email
+        ) {
+        return res.status(400).send('Please make sure to provide name, manager, address, phone and email fields in a request');
+    }
+
+    knex('warehouses')
+        .insert({...req.body, id})
+        .then((data) => {
+            const newWarehouseURL = `/warehouses/${data[0]}`;
+            res.status(201).location(newWarehouseURL).send(newWarehouseURL);
+        })
+        .catch((err) => res.status(400).send(`Error creating Warehouse: ${err}`));
 };
 
