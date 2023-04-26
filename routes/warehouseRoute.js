@@ -10,7 +10,7 @@ router
 .route('/:id')
 .get(warehouseController.singleWarehouse)
 .put(warehouseController.updateWarehouse)
-
+.delete(warehouseController.deleteWarehouse)
 
 router
 .route("/:id/inventories")

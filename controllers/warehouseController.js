@@ -59,6 +59,22 @@ exports.singleWarehouse = (req, res) => {
       );
   };
 
+  exports.deleteWarehouse = (req, res) => {
+    knex('warehouses')
+      .delete()
+      .where({ id: req.params.id })
+      .then((dataCount) => {
+        //If query doesn't return an item that matches ID (thus, showing 0), display "Not Found" error.
+        if(dataCount === 0)
+        {
+          return res.status(404).send(`Record with id: ${req.params.id} is not found`);
+        }
+        res.status(200).send(`Warehouse with id: ${req.params.id} has been deleted`);
+      })
+      .catch((err) =>
+      res.status(400).send(`Error deleting Warehouse ${req.params.id} ${err}`)
+      );
+  };
 
 let emptyArray = [];
 exports.warehouseInventories = (req, res) => {
