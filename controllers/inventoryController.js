@@ -76,7 +76,7 @@ exports.addInventory = (req, res) => {
         !req.body.status ||
         !req.body.quantity 
         ) {
-        return res.status(400).send('Please make sure to provide warehouse ID, item name, description, category, status, and quantity fields in a request.');
+        return res.status(400).send('Please make sure to provide warehouse ID, item name, description, category, sPOST/CREATEtatus, and quantity fields in a request.');
     }
 
     knex('inventories')
