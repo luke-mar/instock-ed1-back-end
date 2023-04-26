@@ -5,13 +5,14 @@ router
 .route("/")
 .get(warehouseController.index);
 
+
 router
-.route('/:id')
-.get(warehouseController.singleWarehouse)
+.route("/:id")
+.get(warehouseController.singleWarehouse);
 
 router
 .route("/:id/inventories")
 .get(warehouseController.warehouseInventories);
 
-module.exports = router;
 
+module.exports = router;
