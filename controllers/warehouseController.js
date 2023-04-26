@@ -11,6 +11,7 @@ exports.index = (_req, res) => {
 };
 
 
+
 exports.warehouseInventories = (req, res) => {
     knex("inventories")
         .where({ warehouse_id: req.params.id })
