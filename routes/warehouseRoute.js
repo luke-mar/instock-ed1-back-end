@@ -4,11 +4,17 @@ const warehouseController = require("../controllers/warehouseController");
 router
     .route("/")
     .get(warehouseController.index);
+    .post(warehouseController.addWarehouse);
 
-// Create a new warehouse using POST
-router.route('/').post(warehouseController.addWarehouse);
+router
+.route('/:id')
+.get(warehouseController.singleWarehouse)
+.put(warehouseController.updateWarehouse)
 
-// Retrieve inventories from a particular warehouse using GET
-router.route("/:id/inventories").get(warehouseController.warehouseInventories);
+
+router
+.route("/:id/inventories")
+.get(warehouseController.warehouseInventories);
+
 
 module.exports = router;
