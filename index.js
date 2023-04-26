@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
     res.send('hello');
   });
 
-  app.use('/warehouses', warehouseRoutes);
-  
+app.use('/warehouses', warehouseRoutes);
+app.use('/inventories', inventoryRoutes);
+
 app.listen(8080, () => console.log(`Listening on 8080`));
