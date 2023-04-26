@@ -13,3 +13,4 @@ module.exports = {
     password: process.env.DB_LOCAL_PASSWORD,
   },
 };
+
