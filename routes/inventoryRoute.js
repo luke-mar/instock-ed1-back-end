@@ -6,7 +6,8 @@ router
     .get(inventoryController.index)
     .post(inventoryController.addInventory);
 
-.route('/:id')
+router
+  .route('/:id')
   .get(inventoryController.singleInventory)
   .put(inventoryController.updateInventories)
   .delete(inventoryController.deleteInventory);
