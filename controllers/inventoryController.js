@@ -1,4 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
+const uuid = require("uuid");
 
 exports.index = (_req, res) => {
     knex("inventories")
@@ -99,3 +100,25 @@ exports.deleteInventory = (req, res) => {
         );
 };
 
+exports.addInventory = (req, res) => {
+    const id = uuid.v4 ();
+    console.log (req.body);
+    if (
+        !req.body.warehouse_id || 
+        !req.body.item_name || 
+        !req.body.description || 
+        !req.body.category || 
+        !req.body.status ||
+        !req.body.quantity 
+        ) {
+        return res.status(400).send('Please make sure to provide warehouse ID, item name, description, category, sPOST/CREATEtatus, and quantity fields in a request.');
+    }
+
+    knex('inventories')
+        .insert({...req.body, id})
+        .then((data) => {
+            const newInventoryURL = `/inventories/${data[0]}`;
+            res.status(201).location(newInventoryURL).send(newInventoryURL);
+        })
+        .catch((err) => res.status(400).send(`Error creating Inventory: ${err}`));
+};
