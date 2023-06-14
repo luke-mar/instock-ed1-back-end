@@ -3,22 +3,33 @@ const uuid = require("uuid");
 
 exports.index = (_req, res) => {
     knex("inventories")
-    .join('warehouses', 'warehouses.id', 'inventories.warehouse_id')
-    .select('warehouses.warehouse_name', 'inventories.id', 'inventories.item_name', 'inventories.item_name', 'inventories.description', 'inventories.category', 'inventories.status', 'inventories.quantity', 'inventories.created_at', 'inventories.updated_at')
+        .join("warehouses", "warehouses.id", "inventories.warehouse_id")
+        .select(
+            "warehouses.warehouse_name",
+            "inventories.id",
+            "inventories.item_name",
+            "inventories.item_name",
+            "inventories.description",
+            "inventories.category",
+            "inventories.status",
+            "inventories.quantity",
+            "inventories.created_at",
+            "inventories.updated_at"
+        )
         .then((data) => {
-            const response = data.map ((inventory) =>{
-                return{
-                    "id": inventory.id,
-                    "warehouse_name": inventory.warehouse_name,
-                    "item_name": inventory.item_name,
-                    "description": inventory.description,
-                    "category": inventory.category,
-                    "status": inventory.status,
-                    "quantity": inventory.quantity,
-                    "created_at": inventory.created_at,
-                    "updated_at": inventory.updated_at,
-                }
-            })
+            const response = data.map((inventory) => {
+                return {
+                    id: inventory.id,
+                    warehouse_name: inventory.warehouse_name,
+                    item_name: inventory.item_name,
+                    description: inventory.description,
+                    category: inventory.category,
+                    status: inventory.status,
+                    quantity: inventory.quantity,
+                    created_at: inventory.created_at,
+                    updated_at: inventory.updated_at,
+                };
+            });
             res.status(200).json(response);
         })
         .catch((err) =>
@@ -64,9 +75,20 @@ exports.updateInventories = (req, res) => {
 let emptyObject = {};
 exports.singleInventory = (req, res) => {
     knex("inventories")
-        .where({ 'inventories.id': req.params.id })
-        .join('warehouses', 'warehouses.id', 'inventories.warehouse_id')
-        .select('warehouses.warehouse_name', 'inventories.id', 'inventories.item_name', 'inventories.item_name', 'inventories.description', 'inventories.category', 'inventories.status', 'inventories.quantity', 'inventories.created_at', 'inventories.updated_at')
+        .where({ "inventories.id": req.params.id })
+        .join("warehouses", "warehouses.id", "inventories.warehouse_id")
+        .select(
+            "warehouses.warehouse_name",
+            "inventories.id",
+            "inventories.item_name",
+            "inventories.item_name",
+            "inventories.description",
+            "inventories.category",
+            "inventories.status",
+            "inventories.quantity",
+            "inventories.created_at",
+            "inventories.updated_at"
+        )
         .then((data) => {
             // If record is not found, respond with 404
             if (!data.length) {
@@ -102,7 +124,7 @@ exports.deleteInventory = (req, res) => {
 
 exports.addInventory = (req, res) => {
     const id = uuid.v4 ();
-    console.log (req.body);
+    console.log (req.body.status);
     if (
         !req.body.warehouse_id || 
         !req.body.item_name || 
@@ -111,7 +133,11 @@ exports.addInventory = (req, res) => {
         !req.body.status ||
         !req.body.quantity 
         ) {
-        return res.status(400).send('Please make sure to provide warehouse ID, item name, description, category, sPOST/CREATEtatus, and quantity fields in a request.');
+        return res
+        .status(400)
+        .send(
+            'Please make sure to provide warehouse ID, item name, description, category, status, and quantity fields in a request.'
+            );
     }
 
     knex('inventories')
