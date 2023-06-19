@@ -44,7 +44,7 @@ exports.updateInventories = (req, res) => {
         !req.body.description ||
         !req.body.category ||
         !req.body.status ||
-        !req.body.quantity
+        req.body.quantity === undefined || isNaN(req.body.quantity)
     ) {
         return res
             .status(400)
